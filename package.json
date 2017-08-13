@@ -1,0 +1,23 @@
+{
+  "name": "oubliette",
+  "version": "0.0.1",
+  "description": "Escape the oubliette without touching the dragon.",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "tsc",
+    "test": "mocha ./build/**/spec.js",
+    "prestart": "tsc",
+    "start": "node build/index.js"
+  },
+  "keywords": [
+    "games"
+  ],
+  "author": "Kia Farhang",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.0.3",
+    "@types/mocha": "^2.2.41",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  }
+}
