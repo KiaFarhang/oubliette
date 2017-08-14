@@ -35,9 +35,9 @@ export abstract class RandomWalkingObject extends AnimateObject{
 
 	private addOrSubtractOne(number: number): number{
 		if (Math.floor(Math.random() * 2) === 0){
-			return number++;
+			return ++number;
 		} else{
-			return number--;
+			return --number;
 		}
 	}
 }
