@@ -100,8 +100,8 @@ describe('Dragon', ()=>{
 				let dragonC: Dragon = new Dragon(new Coordinates(6,6));
 				let coordinatesC: Coordinates = dragonC.move(12,12);
 
-				let possibleXC = [4,5,6];
-				let possibleYC = [4,5,6];
+				let possibleXC = [5,6,7];
+				let possibleYC = [5,6,7];
 
 				let destinationXC = coordinatesC.getX();
 				let destinationYC = coordinatesC.getY();
