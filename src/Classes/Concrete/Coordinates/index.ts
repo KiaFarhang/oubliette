@@ -15,4 +15,8 @@ export class Coordinates{
 		return this.y;
 	}
 
+	public static equal(a: Coordinates, b: Coordinates): boolean{
+		return a.getX() === b.getX() && a.getY() === b.getY();
+	}
+
 }
