@@ -7,16 +7,27 @@ import 'mocha';
 const assert = chai.assert; 
 
 describe('Board', ()=>{
+	let boardConfig: BoardConfig = {
+		rows: 4,
+		columns: 4,
+		playerStartLocation: new Coordinates(0,0),
+		dragonStartLocation: new Coordinates(3,2),
+		doorLocation: new Coordinates(3,3)
+	};
+
+	beforeEach(()=>{
+		boardConfig = {
+		rows: 4,
+		columns: 4,
+		playerStartLocation: new Coordinates(0,0),
+		dragonStartLocation: new Coordinates(3,2),
+		doorLocation: new Coordinates(3,3)
+		};
+	})
+
 	describe('Methods', ()=>{
 		describe('draw', ()=>{
-			it('should print the board as a string', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,0),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('prints the board as a string', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -25,14 +36,7 @@ describe('Board', ()=>{
 				assert.typeOf(boardAsString, 'string');
 			});
 
-			it('should print a newline for each row in the grid', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,0),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('prints a newline for each row in the grid', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -43,7 +47,7 @@ describe('Board', ()=>{
 				assert.strictEqual(boardConfig.rows, numberOfNewlines);
 			});
 
-			it('should properly print boards', ()=>{
+			it('properly prints a few sample boards', ()=>{
 				const boardConfigA: BoardConfig = {
 					rows: 4,
 					columns: 4,
@@ -96,14 +100,7 @@ describe('Board', ()=>{
 		});
 
 		describe('moveAnimateObjects', ()=>{
-			it('should not move the door', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,0),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('does not move the door', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -166,14 +163,7 @@ describe('Board', ()=>{
 		});
 
 		describe('getPlayerLocation', ()=>{
-			it('should return Coordinates', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(2,1),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('returns Coordinates', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -184,14 +174,7 @@ describe('Board', ()=>{
 		});
 
 		describe('getDragonLocation', ()=>{
-			it('should return Coordinates', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(2,1),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('returns Coordinates', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -202,7 +185,7 @@ describe('Board', ()=>{
 		});
 
 		describe('isPlayerAtDragon', ()=>{
-			it('should return true if the dragon+player are on the same space', ()=>{
+			it('returns true if the dragon+player are on the same space', ()=>{
 				const boardConfig: BoardConfig = {
 					rows: 4,
 					columns: 4,
@@ -216,14 +199,7 @@ describe('Board', ()=>{
 				assert.isTrue(board.isPlayerAtDragon());
 			});
 
-			it('should return false if the dragon+player are in different places', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,1),
-					dragonStartLocation: new Coordinates(2,1),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('returns false if the dragon+player are in different places', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -232,7 +208,7 @@ describe('Board', ()=>{
 		});
 
 		describe('isPlayerAtDoor', ()=>{
-			it('should return true if the player is on the door space', ()=>{
+			it('returns true if the player is on the door space', ()=>{
 				const boardConfig: BoardConfig = {
 					rows: 4,
 					columns: 4,
@@ -246,14 +222,7 @@ describe('Board', ()=>{
 				assert.isTrue(board.isPlayerAtDoor());
 			});
 
-			it('should return false if the lpayer is not on the door space', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(2,1),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+			it('returns false if the lpayer is not on the door space', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
