@@ -8,7 +8,9 @@ export abstract class RandomWalkingObject extends AnimateObject{
 	}
 	public move(maxRow: number, maxColumn: number): Coordinates{
 		if(Math.floor(Math.random() *  2) === 0){
-			return this.generateNewDestination(maxRow, maxColumn);
+			const destination = this.generateNewDestination(maxRow, maxColumn);
+			this.setLocation(destination);
+			return destination;
 		}else{
 			return this.location;
 		}
