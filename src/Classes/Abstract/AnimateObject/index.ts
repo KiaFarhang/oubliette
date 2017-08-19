@@ -14,5 +14,11 @@ export abstract class AnimateObject extends GameObject{
 		return this.location;
 	}
 
+	protected setLocation(newLocation: Coordinates): void{
+		this.location = newLocation;
+	}
+
 	public abstract move(maxRow: number, maxColumn: number): Coordinates;
+
+
 }
