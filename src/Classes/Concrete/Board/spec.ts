@@ -15,16 +15,6 @@ describe('Board', ()=>{
 		doorLocation: new Coordinates(3,3)
 	};
 
-	beforeEach(()=>{
-		boardConfig = {
-		rows: 4,
-		columns: 4,
-		playerStartLocation: new Coordinates(0,0),
-		dragonStartLocation: new Coordinates(3,2),
-		doorLocation: new Coordinates(3,3)
-		};
-	})
-
 	describe('Methods', ()=>{
 		describe('draw', ()=>{
 			it('prints the board as a string', ()=>{

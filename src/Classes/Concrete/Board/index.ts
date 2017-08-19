@@ -48,27 +48,30 @@ export class Board implements BoardConfig{
 	public moveAnimateObjects(): void{
 		const maxRow: number = this.rows - 1;
 		const maxColumn: number = this.columns - 1;
-		const dragonDestination: Coordinates = this.dragon.move(maxRow, maxColumn);
-		const playerDestination: Coordinates = this.player.move(maxRow, maxColumn);
+		
 
 		const oldDragonSpace: Coordinates = this.dragon.getLocation();
 		const oldPlayerSpace: Coordinates = this.player.getLocation();
+		
 
-		//If dragon space matches door space, we need to re-add the door after dragon moves
-		const oldDragonX: number = oldDragonSpace.getX();
-		const oldDragonY: number = oldDragonSpace.getY();
-		const doorX: number = this.doorLocation.getX();
-		const doorY: number = this.doorLocation.getY();
+		const dragonDestination: Coordinates = this.dragon.move(maxRow, maxColumn);
+		const playerDestination: Coordinates = this.player.move(maxRow, maxColumn);
 
-		if(oldDragonX === doorX && oldDragonY === doorY){
-			this.updateSite(oldDragonSpace, new Door());
-		}else{
-			this.updateSite(oldDragonSpace, new Space());
+		if (!Coordinates.equal(oldPlayerSpace, playerDestination)){
+			this.updateSite(playerDestination, this.player);
+			this.updateSite(oldPlayerSpace, new Space());
 		}
-		this.updateSite(oldPlayerSpace, new Space());
-		this.updateSite(dragonDestination, this.dragon);
-		this.updateSite(playerDestination, this.player);
 
+		if (!Coordinates.equal(oldDragonSpace, dragonDestination)){
+			this.updateSite(dragonDestination, this.dragon);
+
+			//If dragon space matches door space, we need to re-add the door after dragon moves
+			if (Coordinates.equal(oldDragonSpace, this.doorLocation)){
+				this.updateSite(oldDragonSpace, new Door());
+			}else{
+				this.updateSite(oldDragonSpace, new Space());
+			}
+		}
 	}
 
 	public getPlayerLocation(): Coordinates{
@@ -80,20 +83,11 @@ export class Board implements BoardConfig{
 	}
 
 	public isPlayerAtDragon(): boolean{
-		const playerX: number = this.player.getLocation().getX();
-		const playerY: number = this.player.getLocation().getY();
-		const dragonX: number = this.dragon.getLocation().getX();
-		const dragonY: number = this.dragon.getLocation().getY();
-		return playerX === dragonX && playerY === dragonY;
+		return Coordinates.equal(this.player.getLocation(), this.dragon.getLocation());
 	}
 
 	public isPlayerAtDoor(): boolean{
-		const playerX: number = this.player.getLocation().getX();
-		const playerY: number = this.player.getLocation().getY();
-		const doorX: number = this.doorLocation.getX();
-		const doorY: number = this.doorLocation.getY();
-
-		return playerX === doorX && playerY === doorY;
+		return Coordinates.equal(this.player.getLocation(), this.doorLocation);
 	}
 
 	private constructBoard(): void{
