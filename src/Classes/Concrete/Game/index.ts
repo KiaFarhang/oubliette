@@ -4,25 +4,18 @@ import * as blessed from 'blessed';
 
 export class Game{
 	private board: Board;
+	private screen: any;
+	private box: any;
 
 	constructor(config: BoardConfig){
 		this.board = new Board(config);
-	}
-
-	public turn(): void{
-		this.board.moveAnimateObjects();
-
-		const boardAsString: string = this.board.draw();
-	}
-
-	public play(): void{
-		const screen = blessed.screen({
+		this.screen = blessed.screen({
 			smartCSR: true
 		});
+		
+		this.screen.title = 'Oubliette';
 
-		screen.title = 'Oubliette';
-
-		const box = blessed.box({
+		this.box = blessed.box({
 			top: 'center',
 			left: 'center',
 			width: '100%',
@@ -31,28 +24,20 @@ export class Game{
 			tags: true
 		});
 
-		screen.append(box);
+		this.screen.append(this.box);
 
-		screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-  			return process.exit(0);
-		});
+		this.screen.key(['escape', 'q', 'C-c'], this.quitGame.bind(this));
 
-		screen.key(['space'], (ch, key) =>{
-			this.turn();
-			if(this.board.isPlayerAtDragon()){
-				box.content = 'A dragon ate you';
-			}else if(this.board.isPlayerAtDoor()){
-				box.content = 'You escaped!';
-			}else{
-				box.content = this.board.draw();
-			}
+		this.screen.key(['space'], this.runTurn.bind(this));
 
-			screen.render();
-		});
+		this.box.focus();
 
-		box.focus();
+		this.screen.render();
 
-		screen.render();
+	}
+
+	public turn(): void{
+		this.board.moveAnimateObjects();
 	}
 
 	public getBoard(): Board{
@@ -60,9 +45,22 @@ export class Game{
 	}
 
 	private runTurn(): void{
-		this.turn();
-		
+		this.board.moveAnimateObjects();
+		if(this.board.isPlayerAtDragon()){
+			this.box.content = 'A dragon ate you';
+			this.screen.unkey('space', this.runTurn);
+		}else if(this.board.isPlayerAtDoor()){
+			this.box.content = 'You escaped!';
+			this.screen.unkey('space', this.runTurn);
+		}else{
+			this.box.content = this.board.draw();
+		}
+
+		this.screen.render();
+
 	}
 
-
+	private quitGame(): any{
+		return process.exit(0);
+	}
 }

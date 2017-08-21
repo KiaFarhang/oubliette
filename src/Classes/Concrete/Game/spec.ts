@@ -1,70 +1,86 @@
-import { Game } from './index';
-import { Board } from '../Board';
-import { BoardConfig } from '../../../Interfaces/BoardConfig';
-import { Coordinates } from '../Coordinates';
-import * as chai from 'chai';
-import * as sinon from 'sinon';
-import 'mocha';
+// import { Game } from './index';
+// import { Board } from '../Board';
+// import { BoardConfig } from '../../../Interfaces/BoardConfig';
+// import { Coordinates } from '../Coordinates';
+// import * as chai from 'chai';
+// import * as sinon from 'sinon';
+// import 'mocha';
 
-// sinon.assert.expose(chai.assert, {prefix: ''});
-const assert = chai.assert;
+// // sinon.assert.expose(chai.assert, {prefix: ''});
+// const assert = chai.assert;
 
-describe('Game', ()=>{
-	describe('Methods', ()=>{
-		describe('turn', ()=>{
-			it("should call the board's moveAnimateObjects method once", ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,0),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+// describe('Game', ()=>{
+// 	let boardConfig: BoardConfig = {
+// 		rows: 4,
+// 		columns: 4,
+// 		playerStartLocation: new Coordinates(0,0),
+// 		dragonStartLocation: new Coordinates(3,2),
+// 		doorLocation: new Coordinates(3,3)	
+// 	};
 
-				const game = new Game(boardConfig);
-				const board = game.getBoard();
+// 	it('Never has more than one player', ()=>{
+// 		const game = new Game(boardConfig);
 
-				const moveSpy = sinon.spy(board, 'moveAnimateObjects');
-				game.turn();
+// 		for(let i: number = 0; i < 10; i++){
+// 			game.turn();
+// 		}
 
-				sinon.assert.calledOnce(moveSpy);
+// 		const string: string = game.getBoard().draw();
 
-			});
+// 		const count: number = (string.match(/L/g) || []).length;
 
-			// it("Should call the board's draw method once", ()=>{
-			// 	const boardConfig: BoardConfig = {
-			// 		rows: 4,
-			// 		columns: 4,
-			// 		playerStartLocation: new Coordinates(0,0),
-			// 		dragonStartLocation: new Coordinates(3,2),
-			// 		doorLocation: new Coordinates(3,3)
-			// 	};
+// 		assert.isAtMost(count, 1);
+// 	});
 
-			// 	const game = new Game(boardConfig);
-			// 	const board = game.getBoard();
+// 	it('Never has more than one dragon', ()=>{
+// 		const game = new Game(boardConfig);
+		
+// 		for(let i: number = 0; i < 10; i++){
+// 			game.turn();
+// 		}
 
-			// 	const drawSpy = sinon.spy(board, 'draw');
-			// 	game.turn();
+// 		const string: string = game.getBoard().draw();
 
-			// 	sinon.assert.calledOnce(drawSpy);
-			// });
-		});
+// 		const count: number = (string.match(/S/g) || []).length;
 
-		describe('getBoard', ()=>{
-			it('should return a Board', ()=>{
-				const boardConfig: BoardConfig = {
-					rows: 4,
-					columns: 4,
-					playerStartLocation: new Coordinates(0,0),
-					dragonStartLocation: new Coordinates(3,2),
-					doorLocation: new Coordinates(3,3)
-				};
+// 		assert.isAtMost(count, 1);
 
-				const game = new Game(boardConfig);
-				const board = game.getBoard();
+// 	});
 
-				assert.instanceOf(board, Board);
-			});
-		});
-	});
-});
+// 	describe('Methods', ()=>{
+// 		describe('turn', ()=>{
+// 			it("calls the board's moveAnimateObjects method once", ()=>{
+
+// 				const game = new Game(boardConfig);
+// 				const board = game.getBoard();
+
+// 				const moveSpy = sinon.spy(board, 'moveAnimateObjects');
+// 				game.turn();
+
+// 				sinon.assert.calledOnce(moveSpy);
+
+// 			});
+
+// 			// it("calls the board's draw method once", ()=>{
+
+// 			// 	const game = new Game(boardConfig);
+// 			// 	const board = game.getBoard();
+
+// 			// 	const drawSpy = sinon.spy(board, 'draw');
+// 			// 	game.turn();
+
+// 			// 	sinon.assert.calledOnce(drawSpy);
+// 			// });
+// 		});
+
+// 		describe('getBoard', ()=>{
+// 			it('returns a Board', ()=>{
+
+// 				const game = new Game(boardConfig);
+// 				const board = game.getBoard();
+
+// 				assert.instanceOf(board, Board);
+// 			});
+// 		});
+// 	});
+// });
