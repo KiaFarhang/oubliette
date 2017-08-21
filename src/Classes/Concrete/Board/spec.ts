@@ -17,7 +17,7 @@ describe('Board', ()=>{
 
 	describe('Methods', ()=>{
 		describe('draw', ()=>{
-			it('prints the board as a string', ()=>{
+			it('returns the board as a string', ()=>{
 
 				const board: Board = new Board(boardConfig);
 
@@ -125,6 +125,8 @@ describe('Board', ()=>{
 				assert.include(possibleX, playerX);
 				assert.include(possibleY, playerY);
 			});
+
+			//ERROR ERROR FIX
 
 			it('can - but does not have to - move the dragon', ()=>{
 				const boardConfig: BoardConfig = {

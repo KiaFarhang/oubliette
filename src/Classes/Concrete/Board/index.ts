@@ -49,11 +49,9 @@ export class Board implements BoardConfig{
 		const maxRow: number = this.rows - 1;
 		const maxColumn: number = this.columns - 1;
 		
-
 		const oldDragonSpace: Coordinates = this.dragon.getLocation();
 		const oldPlayerSpace: Coordinates = this.player.getLocation();
 		
-
 		const dragonDestination: Coordinates = this.dragon.move(maxRow, maxColumn);
 		const playerDestination: Coordinates = this.player.move(maxRow, maxColumn);
 
