@@ -3,13 +3,15 @@ import { Coordinates } from '../Coordinates';
 import * as chai from 'chai';
 import 'mocha';
 
-const assert = chai.assert; 
+import { KeyInput } from '../../../Interfaces/KeyInput';
 
-describe('Player', ()=>{
-	describe('Methods', ()=>{
-		describe('getCharCode', ()=>{
-			it('should return L', ()=>{
-				let player: Player = new Player(new Coordinates(1,1));
+const assert = chai.assert;
+
+describe('Player', () => {
+	describe('Methods', () => {
+		describe('getCharCode', () => {
+			it('should return L', () => {
+				let player: Player = new Player(new Coordinates(1, 1));
 				let charCode: string = player.getCharCode();
 
 				assert.strictEqual(charCode, 'L');
@@ -17,18 +19,18 @@ describe('Player', ()=>{
 			});
 		});
 
-		describe('getLocation', ()=>{
+		describe('getLocation', () => {
 
-			it('should return Coordinates', ()=>{
-				let player: Player = new Player(new Coordinates(5,4));
+			it('should return Coordinates', () => {
+				let player: Player = new Player(new Coordinates(5, 4));
 				let location: Coordinates = player.getLocation();
 
 				assert.instanceOf(location, Coordinates);
 			});
 
 
-			it('should return the location of the player', ()=>{
-				let player: Player = new Player(new Coordinates(5,4));
+			it('should return the location of the player', () => {
+				let player: Player = new Player(new Coordinates(5, 4));
 				let location: Coordinates = player.getLocation();
 
 				let currentX: number = location.getX();
@@ -40,17 +42,28 @@ describe('Player', ()=>{
 			});
 		});
 
-		describe('move', ()=>{
-			it('should return new Coordinates', ()=>{
-				let player: Player = new Player(new Coordinates(5,0));
-				let coordinates: Coordinates = player.move(5, 5);
+		//the keyInput we'll use for testing
+		let key: KeyInput = {
+			sequence: '',
+			name: 'up',
+			ctrl: false,
+			meta: false,
+			shift: false,
+			full: 'up'
+		};
+
+		describe('move', () => {
+			it('should return new Coordinates', () => {
+				let player: Player = new Player(new Coordinates(5, 0));
+
+				let coordinates: Coordinates = player.move(5, 5, key);
 
 				assert.instanceOf(coordinates, Coordinates);
 			});
 
-			it('should not let the new coordinates exceed the max row and column', ()=>{
-				let player: Player = new Player(new Coordinates(4,0));
-				let coordinates: Coordinates = player.move(4,4);
+			it('should not let the new coordinates exceed the max row and column', () => {
+				let player: Player = new Player(new Coordinates(4, 0));
+				let coordinates: Coordinates = player.move(4, 4, key);
 
 				let destinationX = coordinates.getX();
 				let destinationY = coordinates.getY();
@@ -60,9 +73,9 @@ describe('Player', ()=>{
 
 			});
 
-			it('should not let the new coordinates fall below 0', ()=>{
-				let player: Player = new Player(new Coordinates(1,0));
-				let coordinates: Coordinates = player.move(1,1);
+			it('should not let the new coordinates fall below 0', () => {
+				let player: Player = new Player(new Coordinates(1, 0));
+				let coordinates: Coordinates = player.move(1, 1, key);
 
 				let destinationX = coordinates.getX();
 				let destinationY = coordinates.getY();
@@ -71,12 +84,12 @@ describe('Player', ()=>{
 				assert.isAtLeast(destinationY, 0);
 			});
 
-			it('should return new coordinates within 1 of the old location', ()=>{
-				let playerA: Player = new Player(new Coordinates(1,0));
-				let coordinatesA: Coordinates = playerA.move(1,1);
+			it('should return new coordinates within 1 of the old location', () => {
+				let playerA: Player = new Player(new Coordinates(1, 0));
+				let coordinatesA: Coordinates = playerA.move(1, 1, key);
 
-				let possibleXA = [0,1];
-				let possibleYA = [0,1];
+				let possibleXA = [0, 1];
+				let possibleYA = [0, 1];
 
 				let destinationXA = coordinatesA.getX();
 				let destinationYA = coordinatesA.getY();
@@ -84,11 +97,11 @@ describe('Player', ()=>{
 				assert.include(possibleXA, destinationXA);
 				assert.include(possibleYA, destinationYA);
 
-				let playerB: Player = new Player(new Coordinates(2,4));
-				let coordinatesB: Coordinates = playerB.move(4,4);
+				let playerB: Player = new Player(new Coordinates(2, 4));
+				let coordinatesB: Coordinates = playerB.move(4, 4, key);
 
-				let possibleXB = [1,2,3];
-				let possibleYB = [3,4];
+				let possibleXB = [1, 2, 3];
+				let possibleYB = [3, 4];
 
 				let destinationXB = coordinatesB.getX();
 				let destinationYB = coordinatesB.getY();
@@ -96,11 +109,11 @@ describe('Player', ()=>{
 				assert.include(possibleXB, destinationXB);
 				assert.include(possibleYB, destinationYB);
 
-				let playerC: Player = new Player(new Coordinates(6,6));
-				let coordinatesC: Coordinates = playerC.move(12,12);
+				let playerC: Player = new Player(new Coordinates(6, 6));
+				let coordinatesC: Coordinates = playerC.move(12, 12, key);
 
-				let possibleXC = [5,6,7];
-				let possibleYC = [5,6,7];
+				let possibleXC = [5, 6, 7];
+				let possibleYC = [5, 6, 7];
 
 				let destinationXC = coordinatesC.getX();
 				let destinationYC = coordinatesC.getY();
